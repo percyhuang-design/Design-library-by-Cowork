@@ -1,0 +1,20 @@
+# private design-system source — clone separately, see BUILD.md
+.source/
+
+# dependencies
+node_modules/
+build/node_modules/
+build/package.json
+build/package-lock.json
+
+# transient build copies & outputs
+build/App.jsx
+build/previews.jsx
+build/*.bundle.js
+build/*.bundle.css
+build/app.css
+build/demos.css
+
+# os / misc
+.DS_Store
+*.log
