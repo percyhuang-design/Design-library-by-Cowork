@@ -1617,11 +1617,17 @@ export default function App() {
   const [messages, setMessages] = useState([]);
   const [dark, setDark] = useState(false);
   const [flow, setFlow] = useState(null);        // { id, title } | null
+  const scrollRef = useRef(null);
 
   useEffect(() => {
     const el = document.documentElement;
     if (dark) el.classList.add("dark"); else el.classList.remove("dark");
   }, [dark]);
+
+  // reset scroll to top when navigating between home / detail / chat
+  useEffect(() => {
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  }, [selected, view]);
 
   const ask = (q) => {
     const results = searchItems(q);
@@ -1637,7 +1643,7 @@ export default function App() {
     <div className="flex min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100"
       style={{ fontFamily: "system-ui, -apple-system, 'Noto Sans TC', sans-serif" }}>
       {!pureChat && <Sidebar onSelect={setSelected} onHome={goHome} current={selected} />}
-      <div className="flex-1 overflow-y-auto" style={{ height: "100vh" }}>
+      <div ref={scrollRef} className="flex-1 overflow-y-auto" style={{ height: "100vh" }}>
         {pureChat ? (
           <ChatMode messages={messages} onAsk={ask} onSelect={setSelected} onExit={exitChat} dark={dark} setDark={setDark} />
         ) : (
