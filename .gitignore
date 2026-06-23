@@ -3,11 +3,11 @@
 
 # dependencies
 node_modules/
+
+# platform build pipeline — transient copies & outputs (keep build/ SOURCE committed)
 build/node_modules/
 build/package.json
 build/package-lock.json
-
-# transient build copies & outputs
 build/App.jsx
 build/previews.jsx
 build/*.bundle.js
@@ -15,6 +15,38 @@ build/*.bundle.css
 build/app.css
 build/demos.css
 
-# os / misc
-.DS_Store
+# template build output
+dist/
+storybook-static/
+
+# environment
+.env
+.env.local
+.env.*.local
+
+# logs
 *.log
+npm-debug.log*
+
+# macOS
+.DS_Store
+Icon
+Icon?
+
+# editor
+.vscode/
+.idea/
+.claude/settings.local.json
+.claude/logs/
+
+# temp / caches
+tmp/
+.cache/
+*.tsbuildinfo
+.turbo/
+.next/
+.parcel-cache/
+coverage/
+
+# netlify CLI per-user state (site id / auth — per-user, not shareable)
+.netlify/
