@@ -41,3 +41,21 @@ bash build/build.sh
 ## 新增一個元件互動範例 / 情境模式流程
 
 編輯 `build/demos.jsx`:在 `DEMOS` 加一個 `元件名: () => (<...>)`,或在 `FLOWS` 加一條流程,然後重跑 `build/build.sh`。`App.jsx` 會自動把有範例的元件 / 有流程的情境模式顯示出來。
+
+## DS 更新後一鍵刷新
+
+設計系統(`@qijenchen/design-system`)有新版時:
+
+```bash
+bash build/refresh.sh
+```
+
+它會:① 拉最新 DS 原始碼 → ② 用 `build/extract-components.py` 從各元件的 `.spec.md` + `.stories.tsx` 重抽資料(何時使用 / 程式碼範例 / summary / 分類),改寫 `App.jsx` 中 `__COMPONENTS_START__` / `__COMPONENTS_END__` 標記之間的 `COMPONENTS` 區塊(其餘手寫程式碼不動)→ ③ 重建 `index.html`。
+
+完成後 `git diff` 檢視、再 commit / push。
+
+注意事項:
+
+- **新元件**會自動進清單;若想歸到正確分類,在 `build/extract-components.py` 的 `CATEGORY` 補上名稱(否則歸「其他」)。
+- **API 有變的元件**:其 `build/demos.jsx` 的 live demo 可能要手動修(prop 改名等);`build.sh` 與無頭測試會把壞掉的地方暴露出來。
+- **新元件要 live demo**:依上一節在 `build/demos.jsx` 補。
